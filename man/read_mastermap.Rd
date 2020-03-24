@@ -24,5 +24,6 @@ It was originally designed to read-in
 \donttest{
 dir = "~/hd/data/os/Download_mastermap-roads-2019_1483661/MasterMap Highways Network_rami_3480319/"
 roads_uk = read_mastermap(dir, n = 2)
+roads_uk = read_mastermap(dir)
 }
 }

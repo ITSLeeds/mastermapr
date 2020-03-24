@@ -27,7 +27,7 @@ read_mastermap = function(dir, type_match = "roadlink", n = 10000, ext = "gz") {
   message("Found these files (first 3 of ", length(f), " to read): ", f_name[1:3])
   res = lapply(f, sf::st_read)
   n_cols_res = sapply(res, ncol)
-  median_n_cols_res = median(n_cols_res)
+  median_n_cols_res = stats::median(n_cols_res)
   n_cols_equal = n_cols_res == median_n_cols_res
   if(!all(n_cols_equal)) {
     warning("Column numbers differ")
@@ -44,7 +44,9 @@ read_mastermap = function(dir, type_match = "roadlink", n = 10000, ext = "gz") {
 
 #' Return all list elements with consistent column names
 #'
+#' @param x A list of data frames
 #'
+#' @export
 rbind_list_fill = function(x) {
   all_colnames = unique(unlist(lapply(x, names)))
   all = lapply(x, function(x) {
