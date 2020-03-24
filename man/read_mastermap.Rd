@@ -4,7 +4,7 @@
 \alias{read_mastermap}
 \title{Read mastermap data}
 \usage{
-read_mastermap(dir, type_match = "roadlink", n = 5)
+read_mastermap(dir, type_match = "roadlink", n = 10000, ext = "gz")
 }
 \arguments{
 \item{dir}{Directory where MasterMap files live}
@@ -12,7 +12,17 @@ read_mastermap(dir, type_match = "roadlink", n = 5)
 \item{type_match}{Type of feature to return, matched on directory}
 
 \item{n}{How many files to return (all by default, can be resource-consuming)}
+
+\item{ext}{Extension, e.g. .gz}
 }
 \description{
-Read mastermap data
+This function can read-in multiple files stored in datasets downloaded from the Ordnance Survey.
+It was originally designed to read-in
+\href{https://www.ordnancesurvey.co.uk/documents/os-mastermap-highways-network-product-guide.pdf}{MasterMap Highway data}.
+}
+\examples{
+\donttest{
+dir = "~/hd/data/os/Download_mastermap-roads-2019_1483661/MasterMap Highways Network_rami_3480319/"
+roads_uk = read_mastermap(dir, n = 2)
+}
 }
