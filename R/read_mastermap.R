@@ -25,7 +25,7 @@ read_mastermap = function(dir, type_match = "roadlink", n = 10000, ext = "gz") {
     f = f[1:n]
   }
   message("Found these files (first 3 of ", length(f), " to read): ", f_name[1:3])
-  res = lapply(f, sf::st_read)
+  res = lapply(f, sf::read_sf)
   n_cols_res = sapply(res, ncol)
   median_n_cols_res = stats::median(n_cols_res)
   n_cols_equal = n_cols_res == median_n_cols_res
