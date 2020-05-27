@@ -26,19 +26,21 @@ read_mastermap = function(dir, type_match = "roadlink", n = 10000, ext = "gz") {
   }
   message("Found these files (first 3 of ", length(f), " to read): ", f_name[1:3])
   res = lapply(f, sf::read_sf)
-  n_cols_res = sapply(res, ncol)
-  median_n_cols_res = stats::median(n_cols_res)
-  n_cols_equal = n_cols_res == median_n_cols_res
-  if(!all(n_cols_equal)) {
-    warning("Column numbers differ")
-    message("Names of first offending object ", which(!n_cols_equal)[1], ":")
-    message(names(res[[which(!n_cols_equal)[1]]]))
-    message("Usual names:")
-    message(names(res[[which(n_cols_equal)[1]]]))
-    message("Returning the list result")
-    return(res)
-  }
-  res_df = do.call(rbind, res)
+  res_dt = data.table::rbindlist(res, fill = TRUE)
+  res_df = sf::st_as_sf(res_dt)
+  # n_cols_res = sapply(res, ncol)
+  # median_n_cols_res = stats::median(n_cols_res)
+  # n_cols_equal = n_cols_res == median_n_cols_res
+  # if(!all(n_cols_equal)) {
+  #   warning("Column numbers differ")
+  #   message("Names of first offending object ", which(!n_cols_equal)[1], ":")
+  #   message(names(res[[which(!n_cols_equal)[1]]]))
+  #   message("Usual names:")
+  #   message(names(res[[which(n_cols_equal)[1]]]))
+  #   message("Returning the list result")
+  #   return(res)
+  # }
+  # res_df = do.call(rbind, res)
   res_df
 }
 
